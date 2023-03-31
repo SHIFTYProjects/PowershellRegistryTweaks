@@ -33,7 +33,7 @@ is best to run this after running the DISM Repair Tool.  This finds corrupt file
 
 **Enable Bing** - Runs the reverse of the previous action.
 
-Get Serial Number - Gets the serial number (Service Tag) of the current machine.
+**Get Serial Number** - Gets the serial number (Service Tag) of the current machine.
 
 
 
