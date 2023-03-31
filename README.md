@@ -1,7 +1,7 @@
 # PowershellRegistryTweaks
 Powershell Gui of some common registry tweaks.
 
-
+![image](https://user-images.githubusercontent.com/115837132/229208263-67111d78-f081-434d-9d89-adc106a189b1.png)
 
 Current Registry Tweaks:
 
@@ -30,4 +30,4 @@ Enable Bing - Runs the reverse of the previous action.
 
 
 
-![image](https://user-images.githubusercontent.com/115837132/229208263-67111d78-f081-434d-9d89-adc106a189b1.png)
+
