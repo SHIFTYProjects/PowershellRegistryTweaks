@@ -1,0 +1,338 @@
+#############################################
+#Title: Windows 11 Broken PC - 2023
+#Author:Josh Hochstettler
+#
+# Contains scripts to change registry keys for windows 11 applications.
+#
+#
+#
+#
+#############################################
+
+
+
+
+
+Add-Type -AssemblyName System.Windows.Forms
+
+# Create a new form
+$form = New-Object System.Windows.Forms.Form
+$form.Text = "WINDOWS 11 Broken PC TOOL"
+$form.Width = 750
+$form.Height = 300
+$form.backcolor = ""
+
+# Create an output box
+$outputBox = New-Object System.Windows.Forms.TextBox
+$outputBox.Multiline = $true
+$outputBox.ScrollBars = "Vertical"
+$outputBox.Location = New-Object System.Drawing.Point(290, 10)
+$outputBox.Size = New-Object System.Drawing.Size(430, 140)
+$form.Controls.Add($outputBox)
+
+
+
+# Create a "DISM Repair" button
+$DISM = New-Object System.Windows.Forms.Button
+$DISM.Location = New-Object System.Drawing.Point(10, 10)
+$DISM.Forecolor = "black"
+$DISM.Backcolor = "lightblue"
+$DISM.Size = New-Object System.Drawing.Size(150, 30)
+$DISM.Text = "1. DISM Repair"
+$form.Controls.Add($DISM)
+
+
+
+# Create a "Run SFC" button
+$sfcButton = New-Object System.Windows.Forms.Button
+$sfcButton.Location = New-Object System.Drawing.Point(170, 10)
+$sfcButton.Forecolor = "black"
+$sfcButton.Backcolor = "lightblue"
+$sfcButton.Size = New-Object System.Drawing.Size(100, 30)
+$sfcButton.Text = "2. Run SFC"
+$form.Controls.Add($sfcButton)
+
+# Create an "Hiberboot - Reboot after shutdown fix" button
+$hiberbootDisable = New-Object System.Windows.Forms.Button
+$hiberbootDisable.Location = New-Object System.Drawing.Point(10, 50)
+$hiberbootDisable.Forecolor = "black"
+$hiberbootDisable.Backcolor = "lightgreen"
+$hiberbootDisable.Size = New-Object System.Drawing.Size(150, 30)
+$hiberbootDisable.Text = "Hiberboot Disable"
+$form.Controls.Add($hiberbootDisable)
+
+
+# Hiberboot Enable "Reboot after shutdown fix" button
+$hiberbootEnable = New-Object System.Windows.Forms.Button
+$hiberbootEnable.Location = New-Object System.Drawing.Point(170, 50)
+$hiberbootEnable.Size = New-Object System.Drawing.Size(100, 30)
+$hiberbootEnable.Forecolor = "white"
+$hiberbootEnable.Backcolor = "firebrick"
+$hiberbootEnable.Text = "Hiberboot Enable"
+$form.Controls.Add($hiberbootEnable)
+
+
+# Create "Disable Auto Start Teams" button
+$disableWSUS = New-Object System.Windows.Forms.Button
+$disableWSUS.Location = New-Object System.Drawing.Point(10, 90)
+$disableWSUS.Size = New-Object System.Drawing.Size(150, 30)
+$disableWSUS.Forecolor = "black"
+$disableWSUS.Backcolor = "lightgreen"
+$disableWSUS.Text = "Disable WSUS"
+$form.Controls.Add($disableWSUS)
+
+
+# Create "Disable Auto Start Teams" button
+$enableWSUS = New-Object System.Windows.Forms.Button
+$enableWSUS.Location = New-Object System.Drawing.Point(170, 90)
+$enableWSUS.Size = New-Object System.Drawing.Size(100, 30)
+$enableWSUS.Forecolor = "white"
+$enableWSUS.Backcolor = "firebrick"
+$enableWSUS.Text = "Enable WSUS"
+$form.Controls.Add($enableWSUS)
+
+# Create "Disable Search highlights" button
+$disableHighlights = New-Object System.Windows.Forms.Button
+$disableHighlights.Location = New-Object System.Drawing.Point(10, 130)
+$disableHighlights.Size = New-Object System.Drawing.Size(150, 30)
+$disableHighlights.Forecolor = "black"
+$disableHighlights.Backcolor = "lightgreen"
+$disableHighlights.Text = "Disable Search Highlights"
+$form.Controls.Add($disableHighlights)
+
+
+# Create "Enable Search Highlights" button
+$enableHighlights = New-Object System.Windows.Forms.Button
+$enableHighlights.Location = New-Object System.Drawing.Point(170, 130)
+$enableHighlights.Size = New-Object System.Drawing.Size(100, 30)
+$enableHighlights.Forecolor = "white"
+$enableHighlights.Backcolor = "firebrick"
+$enableHighlights.Text = "Enable Highlights"
+$form.Controls.Add($enableHighlights)
+
+# Create "Allow upgrades with unsupported CPU TPM" button
+$AllowUpgrades = New-Object System.Windows.Forms.Button
+$AllowUpgrades.Location = New-Object System.Drawing.Point(10, 170)
+$AllowUpgrades.Size = New-Object System.Drawing.Size(150, 30)
+$AllowUpgrades.Forecolor = "black"
+$AllowUpgrades.Backcolor = "lightgreen"
+$AllowUpgrades.Font = New-Object System.Drawing.Font("","7",[System.Drawing.FontStyle]::Regular)
+$AllowUpgrades.Text = "AllowUpgrades W/o CPU/TPM"
+$form.Controls.Add($AllowUpgrades)
+
+
+# Create "DisallowUpgrades" button
+$DisallowUpgrades = New-Object System.Windows.Forms.Button
+$DisallowUpgrades.Location = New-Object System.Drawing.Point(170, 170)
+$DisallowUpgrades.Size = New-Object System.Drawing.Size(100, 30)
+$DisallowUpgrades.Forecolor = "white"
+$DisallowUpgrades.Backcolor = "firebrick"
+$DisallowUpgrades.Font = New-Object System.Drawing.Font("","7",[System.Drawing.FontStyle]::Regular)
+$DisallowUpgrades.Text = "DisallowUpgrades"
+$form.Controls.Add($DisallowUpgrades)
+
+# Create "DisableBing" button
+$DisableBing = New-Object System.Windows.Forms.Button
+$DisableBing.Location = New-Object System.Drawing.Point(10, 210)
+$DisableBing.Size = New-Object System.Drawing.Size(150, 30)
+$DisableBing.Forecolor = "black"
+$DisableBing.Backcolor = "lightgreen"
+$DisableBing.Text = "Disable Bing"
+$form.Controls.Add($DisableBing)
+
+
+# Create "EnableBing" button
+$EnableBing = New-Object System.Windows.Forms.Button
+$EnableBing.Location = New-Object System.Drawing.Point(170, 210)
+$EnableBing.Size = New-Object System.Drawing.Size(100, 30)
+$EnableBing.Forecolor = "white"
+$EnableBing.Backcolor = "firebrick"
+$EnableBing.Text = "Enable Bing"
+$form.Controls.Add($EnableBing)
+
+# Create "WindowsUpdate" button
+$WindowsUpdate = New-Object System.Windows.Forms.Button
+$WindowsUpdate.Location = New-Object System.Drawing.Point(290, 150)
+$WindowsUpdate.Size = New-Object System.Drawing.Size(150, 30)
+$WindowsUpdate.Forecolor = "white"
+$WindowsUpdate.Backcolor = "mediumblue"
+$WindowsUpdate.Text = "Open Windows Update"
+$form.Controls.Add($WindowsUpdate)
+
+
+# Create "Get Serial Number" button
+$SerialNumber = New-Object System.Windows.Forms.Button
+$SerialNumber.Location = New-Object System.Drawing.Point(450, 150)
+$SerialNumber.Size = New-Object System.Drawing.Size(150, 30)
+$SerialNumber.Forecolor = "white"
+$SerialNumber.Backcolor = "mediumblue"
+$SerialNumber.Text = "Get Serial Number"
+$form.Controls.Add($SerialNumber)
+
+
+#####################################################################
+#Form Title Label
+#####################################################################
+$formLabel = New-Object System.Windows.Forms.label
+$formLabel.Location = New-Object System.Drawing.Point(280,200)
+$formLabel.Size = New-Object System.Drawing.Size(400,30)
+$formLabel.Font = New-Object System.Drawing.Font("Algerian","19",[System.Drawing.FontStyle]::Regular)
+$formLabel.ForeColor = "blue"
+$formLabel.BackColor = "transparent"
+$formLabel.Text = "SHIFTY TOOLS - Registry Fixes"
+$form.Controls.Add($formLabel)
+#####################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+# Define the actions for the buttons
+
+$DISM.Add_Click({
+    $outputBox.AppendText("DISM Checks your OS for Errors." + [Environment]::NewLine)
+    $outputBox.AppendText("Running Windows Image Repair..." + [Environment]::NewLine)
+    Start-Process cmd.exe -Verb RunAs -ArgumentList "/k DISM /Online /Cleanup-Image /RestoreHealth"
+
+})
+
+
+
+$sfcButton.Add_Click({
+
+ $outputBox.AppendText("Running SFC /Scannow..." + [Environment]::NewLine)
+ Start-Process cmd.exe -Verb RunAs -ArgumentList "/k sfc /scannow"
+ 
+    })
+
+
+$hiberbootDisable.Add_Click({
+    $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Value 0 -Type DWord | Out-Null
+    $outputBox.AppendText("HiberbootEnabled Registry key updated to 0." + [Environment]::NewLine)
+    $outputBox.AppendText("This solves some problems with computers not wanting to wake up after updating to Windows 11." + [Environment]::NewLine)
+})
+
+
+$hiberbootEnable.Add_Click({
+    $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Name "HiberbootEnabled" -Value 1 -Type DWord | Out-Null
+    $outputBox.AppendText("HiberbootEnabled Registry key updated to 1." + [Environment]::NewLine)
+})
+
+
+$disableWSUS.Add_Click({
+     $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    Set-ItemProperty -Path "HKLM:SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 0 -Type DWord | Out-Null
+    Set-ItemProperty -Path "HKLM:SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "NoAutoUpdate" -Value 1 -Type DWord | Out-Null
+    $outputBox.AppendText("UseWUServer Registry key updated to 0." + [Environment]::NewLine)
+    $outputBox.AppendText("NoAutoUpdate Registry key updated to 1." + [Environment]::NewLine)
+    $outputBox.AppendText("You may run windows updates until the next GPO Update. (15 Minutes.)" + [Environment]::NewLine)
+})
+
+
+
+$enableWSUS.Add_Click({
+    $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    Set-ItemProperty -Path "HKLM:SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 1 -Type DWord | Out-Null
+    Set-ItemProperty -Path "HKLM:SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "NoAutoUpdate" -Value 0 -Type DWord | Out-Null
+    $outputBox.AppendText("UseWUServer Registry key updated to 1." + [Environment]::NewLine)
+    $outputBox.AppendText("NoAutoUpdate Registry key updated to 0." + [Environment]::NewLine)
+    $outputBox.AppendText("Enabled WSUS Updates Only." + [Environment]::NewLine)
+})
+
+
+
+$disableHighlights.Add_Click({
+    $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB" -Value 0 -Type DWord | Out-Null
+    $outputBox.AppendText("Search Highlight EnableDynamicContentInWSB Registry key updated to 0." + [Environment]::NewLine)
+})
+
+
+$enableHighlights.Add_Click({
+    $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search" -Name "EnableDynamicContentInWSB" -Value 1 -Type DWord | Out-Null
+    $outputBox.AppendText("Search Highlight EnableDynamicContentInWSB Registry key updated to 1." + [Environment]::NewLine)
+})
+
+$AllowUpgrades.Add_Click({
+    $outputBox.AppendText("Changing to allow Windows 11 Upgrade without checking for TPM/CPU..." + [Environment]::NewLine)
+    $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    #Set-ItemProperty -Path "HKLM:\SYSTEM\Setup\MoSetup" -Name "AllowUpgradesWithUnsupportedTPMOrCPU" -Value 1 -Type DWord | Out-Null
+    $outputBox.AppendText("AllowUpgradesWithUnsupportedTPMOrCPU Registry key updated to 1." + [Environment]::NewLine)
+})
+
+
+$DisallowUpgrades.Add_Click({
+    $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    Set-ItemProperty -Path "HKLM:\SYSTEM\Setup\MoSetup" -Name "AllowUpgradesWithUnsupportedTPMOrCPU" -Value 0 -Type DWord | Out-Null
+    $outputBox.AppendText("AllowUpgradesWithUnsupportedTPMOrCPU Registry key updated to 0." + [Environment]::NewLine)
+})
+
+
+$DisableBing.Add_Click({
+    $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows" -Name "DisableSearchBoxSuggestions" -Value 1 -Type DWord | Out-Null
+    $outputBox.AppendText("DisableSearchBoxSuggestions Registry key updated to 1." + [Environment]::NewLine)
+    $outputBox.AppendText("Since this is in the HKCU class, it only works per user and is not global." + [Environment]::NewLine)
+})
+
+$EnableBing.Add_Click({
+    $outputBox.AppendText("Updating registry key..." + [Environment]::NewLine)
+    Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Windows" -Name "DisableSearchBoxSuggestions" -Value 0 -Type DWord | Out-Null
+    $outputBox.AppendText("DisableSearchBoxSuggestions Registry key updated to 0." + [Environment]::NewLine)
+    $outputBox.AppendText("Since this is in the HKCU class, it only works per user and is not global." + [Environment]::NewLine)
+})
+
+
+$WindowsUpdate.Add_Click({
+    $outputBox.AppendText("Opening Windows Update Panel..." + [Environment]::NewLine)
+    start ms-settings:windowsupdate
+
+})
+
+$SerialNumber.Add_Click({
+  $outputBox.AppendText("Getting Serial Number of PC..." + [Environment]::NewLine)
+  $serialNumber = Get-WmiObject -Class Win32_BIOS | Select-Object -ExpandProperty SerialNumber
+  $serialnumber
+  $outputBox.AppendText("Serial Number: $serialNumber" + [Environment]::NewLine)
+})
+
+
+
+
+####################################################################################
+#Version Button and Function
+####################################################################################
+# Create "WindowsUpdate" button
+$Ver = New-Object System.Windows.Forms.Button
+$Ver.Location = New-Object System.Drawing.Point(670, 230)
+$Ver.Size = New-Object System.Drawing.Size(50, 30)
+$Ver.Forecolor = "white"
+$Ver.Backcolor = "mediumblue"
+$Ver.Text = "v1.0"
+$form.Controls.Add($Ver)
+
+
+$Ver.Add_Click({
+    $outputBox.AppendText("Clicked Version Button..." + [Environment]::NewLine)
+    $outputBox.AppendText("Program Written By Josh Hochstettler" + [Environment]::NewLine)
+
+})
+####################################################################################
+
+
+
+
+
+# Display the form
+$form.ShowDialog() | Out-Null
+
